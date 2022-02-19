@@ -2,17 +2,22 @@ import csv, os, glob
 
 [TYPE, PERIOD, VALUE] = range(3)
 
-def readFile(name):
-    reader = csv.reader(open(name))
-    dictionary = {}
-    for i, row in enumerate(reader):
-        if not i:continue
-        dictionary[row[1]] = [row[n] for n in (3, 8, 9)]
-    return dictionary
+indicators = {}
 
+def readFile(name):
+    with open(name) as file:
+        reader = csv.reader(file)
+        for i, row in enumerate(reader):
+            if not i:continue
+            country, _type, value = [row[n] for n in (1, 3, 9)]
+            if country in indicators:
+                indicators[country][_type] = value
+            else:
+                indicators[country] = {_type:value}
+        file.close()
+        
+#def allFiles(basePath="/home/brebeufhx5website/brebeufhx5website"):
 def allFiles(basePath=""):
     return glob.glob(os.path.join(basePath, "*.csv"))
-    
-files = [readFile(path) for path in allFiles()]
-indicators = {list(file.values())[0][TYPE]:i for i, file in enumerate(files)}
-countries = [list(file.keys()) for file in files]
+[readFile(path) for path in allFiles()]
+countries = list(indicators.keys())

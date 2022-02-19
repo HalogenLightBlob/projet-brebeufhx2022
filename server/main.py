@@ -19,18 +19,19 @@ def uploadPetition():
 
 @app.route("/votePetition", methods=["GET", "POST"])
 def votePetition():
-    """Vote to show your support for a petition"""
+    """Vote to show your support for a petition. Can return 'invalid email' or 'already voted' """
     try:
         args = flask.request.json
         uid = args["uid"]
-        firebasemanager.votePetition(uid)
-        return "true"
+        email=args["email"]
+        message=firebasemanager.votePetition(uid,email)
+        return message
     except:
         return "false"
 
 @app.route("/getRandomPetitions", methods=["GET", "POST"])
 def getRandomPetitions():
-    """Download a number of petitions from online database"""
+    """Download a number of petitions from online database, sorted in order of votes."""
     try:
         args = flask.request.json
         count = args["count"]
@@ -41,7 +42,7 @@ def getRandomPetitions():
 
 @app.route("/searchPetitions",methods=["GET","POST"])
 def searchPetitions():
-    """Search petitions relevent to you"""
+    """Search petitions relevent to you. This input is a string of words separated by spaces"""
     try:
         args = flask.request.json
         searchstring = args["searchstring"]
@@ -50,9 +51,9 @@ def searchPetitions():
     except:
         return "false"
 
-@app.route("/publishPetitions",methods=["GET","POST"])
-def publishPetitions():
-    """Move a petition to the published folder"""
+@app.route("/publishPetition",methods=["GET","POST"])
+def publishPetition():
+    """Move a petition to the published folder. Not to be implemented in frontend."""
     try:
         args = flask.request.json
         uid = args["uid"]
@@ -70,18 +71,19 @@ def indicatorTypes():
 
 @app.route("/countries", methods=["GET", "POST"])
 def countries():
+    """Get list of all countries in database."""
     try:
         return json.dumps(sdmxmanager.countries)
     except:
         return "false"
 
-@app.route("/getIndicatorByCountry", methods=["POST"])
-def getIndicatorByCountry():
+@app.route("/getIndicatorsByCountry", methods=["POST"])
+def getIndicatorsByCountry():
+    """Fetch indicators in a specific country from server. Values may be UNKNOWN, which is represented by an x"""
     try:
         args = flask.request.json
-        indicator = sdmxmanager.indicators[args["indicator"]]
         country = args["country"]
-        return json.dumps(sdmxmanager.files[indicator][country])
+        return json.dumps(sdmxmanager.indicators[country])
     except:
         return "false"
 
