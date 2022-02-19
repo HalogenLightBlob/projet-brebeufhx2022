@@ -1,4 +1,4 @@
-import firebase_admin,uuid,json,random
+import firebase_admin,uuid,random
 from firebase_admin import firestore
 
 cred=firebase_admin.credentials.Certificate("data/credentials.json")
@@ -22,7 +22,13 @@ def getPetitions(count):
     petitions=list()
     for petition in list(petitionbase.list_documents()):
         petitions.append((petition.get().get("votes"),petition))
+    random.shuffle(petitions)
     petitions.sort(key=lambda x:x[0])
     petitions=[{**petition[1].get().to_dict(),"uid":petition[1].id} for petition in petitions]
-    random.shuffle(petitions)
     return petitions[:min(count,len(petitions)-1)]
+
+def publishPetition(uid):
+    try:petition=pendingbase.document(uid).get().to_dict()
+    except:raise ValueError("No uid found with this name")
+    pendingbase.delete(uid)
+    petitionbase.document(uid).set(petition)
