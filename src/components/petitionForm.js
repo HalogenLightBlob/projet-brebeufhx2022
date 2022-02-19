@@ -14,7 +14,7 @@ const PetitionForm = () => {
     e.preventDefault();
     console.log(title, email, firstName);
     if (!anonymous) {
-      fetch("http://brebeufhx5website.pythonanywhere.com/uploadPetition", {
+      fetch("https://brebeufhx5website.pythonanywhere.com/uploadPetition", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const PetitionForm = () => {
           alert("Il y a eu un problème. SVP recommencer.");
         });
     } else {
-      fetch("http://brebeufhx5website.pythonanywhere.com/uploadPetition", {
+      fetch("https://brebeufhx5website.pythonanywhere.com/uploadPetition", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

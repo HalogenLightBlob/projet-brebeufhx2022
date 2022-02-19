@@ -59,7 +59,7 @@ const PetitionGallery = () => {
 
   useEffect(() => {
     // Fetch petitions
-    fetch("http://brebeufhx5website.pythonanywhere.com/getRandomPetitions", {
+    fetch("https://brebeufhx5website.pythonanywhere.com/getRandomPetitions", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const PetitionGallery = () => {
 
   const handleSearch = (text) => {
     if (text.trim().length > 0) {
-      fetch("http://brebeufhx5website.pythonanywhere.com/searchPetitions", {
+      fetch("https://brebeufhx5website.pythonanywhere.com/searchPetitions", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const PetitionGallery = () => {
           setPetitions([]);
         });
     } else {
-      fetch("http://brebeufhx5website.pythonanywhere.com/getRandomPetitions", {
+      fetch("https://brebeufhx5website.pythonanywhere.com/getRandomPetitions", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -119,7 +119,7 @@ const PetitionGallery = () => {
 
   const handleFormSubmit = (email) => {
     if (email.trim().length > 0) {
-      fetch("http://brebeufhx5website.pythonanywhere.com/votePetition", {
+      fetch("https://brebeufhx5website.pythonanywhere.com/votePetition", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

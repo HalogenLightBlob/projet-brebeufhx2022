@@ -5,7 +5,7 @@ import "./Map.css";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiY2VmcXJuIiwiYSI6ImNrenRibnJheTMwcXYycHFvOHFlcmx6bngifQ.BU5G4Dd1DtDo4AbvuKjnQg";
 const resource =
-  "http://brebeufhx5website.pythonanywhere.com/getIndicatorsByCountry";
+  "https://brebeufhx5website.pythonanywhere.com/getIndicatorsByCountry";
 
 function Map() {
   const mapContainer = useRef(null);
