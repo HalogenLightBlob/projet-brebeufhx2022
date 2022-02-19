@@ -30,5 +30,5 @@ def getPetitions(count):
 def publishPetition(uid):
     try:petition=pendingbase.document(uid).get().to_dict()
     except:raise ValueError("No uid found with this name")
-    pendingbase.delete(uid)
+    pendingbase.document(uid).delete()
     petitionbase.document(uid).set(petition)
