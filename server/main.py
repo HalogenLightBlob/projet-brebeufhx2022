@@ -28,26 +28,38 @@ def votePetition():
     except:
         return "false"
 
-@app.route("/getPetition", methods=["GET", "POST"])
-def getPetition():
+@app.route("/getRandomPetitions", methods=["GET", "POST"])
+def getRandomPetitions():
     """Download a number of petitions from online database"""
     try:
         args = flask.request.json
         count = args["count"]
-        petitions=firebasemanager.getPetitions(int(count))
+        petitions=firebasemanager.getRandomPetitions(int(count))
         return json.dumps(petitions)
     except:
         return "false"
 
-@app.route("/publishPetition",methods=["GET","POST"])
-def publishPetition():
+@app.route("/searchPetitions",methods=["GET","POST"])
+def searchPetitions():
+    """Search petitions relevent to you"""
+    try:
+        args = flask.request.json
+        searchstring = args["searchstring"]
+        targets=firebasemanager.searchPetitions(searchstring)
+        return json.dumps(targets)
+    except:
+        return "false"
+
+@app.route("/publishPetitions",methods=["GET","POST"])
+def publishPetitions():
     """Move a petition to the published folder"""
     try:
         args = flask.request.json
         uid = args["uid"]
         firebasemanager.publishPetition(uid)
         return "true"
-    except:return "false
+    except:
+        return "false"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=235, threaded=True)
