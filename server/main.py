@@ -10,7 +10,7 @@ def uploadPetition():
     try:
         args = flask.request.json
         title = args["title"]
-        body = args["body"]
+        body = args["text"]
         author = args.get("author", "Anonyme")
         firebasemanager.uploadPetition(title,body,author)
         return "true"
@@ -22,8 +22,9 @@ def votePetition():
     """Vote to show your support for a petition"""
     try:
         args = flask.request.json
-        id = args["id"]
-        firebasemanager.votePetition(id)
+        uid = args["uid"]
+        firebasemanager.votePetition(uid)
+        return "true"
     except:
         return "false"
 
@@ -33,7 +34,7 @@ def getPetition():
     try:
         args = flask.request.json
         count = args["count"]
-        petitions=firebasemanager.getPetitions(count)
+        petitions=firebasemanager.getPetitions(int(count))
         return json.dumps(petitions)
     except:
         return "false"
