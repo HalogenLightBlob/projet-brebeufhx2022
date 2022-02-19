@@ -12,7 +12,7 @@ const PetitionItem = ({ petition, setShowPopup }) => {
           </p>
 
           <p style={{ fontWeight: "bold", fontSize: "10px" }}>
-            {petition.emails}
+            {petition.email}
           </p>
         </div>
       ) : (
