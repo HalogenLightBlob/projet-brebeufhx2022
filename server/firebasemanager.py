@@ -12,16 +12,16 @@ def uploadPetition(title,text,author):
     petitionbase.document(uid).set(data)
 
 def votePetition(uid):
-    try:petition=petitionbase.get(uid)
+    try:petition=petitionbase.document(uid)
     except:raise ValueError("No uid found with this name")
-    votes=petition.get("votes")+1
-    petition.update(votes=votes)
+    votes=petition.get().get("votes")+1
+    petition.update({"votes":votes})
 
-def getPetition(count):
+def getPetitions(count):
     petitions=list()
     for petition in list(petitionbase.list_documents()):
         petitions.append((petition.get().get("votes"),petition))
-    petitions.sort()
+    petitions.sort(key=lambda x:x[0])
     petitions=[{**petition[1].get().to_dict(),"uid":petition[1].id} for petition in petitions]
     random.shuffle(petitions)
     return petitions[:min(count,len(petitions)-1)]
