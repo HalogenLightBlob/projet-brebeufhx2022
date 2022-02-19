@@ -29,7 +29,6 @@ def runjudge(judge,title,text):
     return result
 
 judge=tensorflow.keras.models.load_model("model")
-print(runjudge(judge,"text about saving children","protecting children from hunger and exploitation"))
 
 if __name__=="__main__":
     texts=[]

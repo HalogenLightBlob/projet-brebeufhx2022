@@ -1,7 +1,9 @@
 import flask, json
+from flask_cors import CORS
 import firebasemanager,sdmxmanager
 
 app = flask.Flask(__name__)
+CORS(app)
 
 @app.route("/uploadPetition", methods=["POST"])
 def uploadPetition():
@@ -12,11 +14,11 @@ def uploadPetition():
         title = args["title"]
         body = args["text"]
         author = args.get("author", "Anonyme")
-        email = args.get("email", None)
+        email = args["email"]
         result=firebasemanager.uploadPetition(title,body,author,email)
         return result
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 @app.route("/votePetition", methods=["GET", "POST"])
 def votePetition():
@@ -27,8 +29,8 @@ def votePetition():
         email=args["email"]
         message=firebasemanager.votePetition(uid,email)
         return message
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 @app.route("/getRandomPetitions", methods=["GET", "POST"])
 def getRandomPetitions():
@@ -38,8 +40,8 @@ def getRandomPetitions():
         count = args["count"]
         petitions=firebasemanager.getRandomPetitions(int(count))
         return json.dumps(petitions)
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 @app.route("/searchPetitions",methods=["GET","POST"])
 def searchPetitions():
@@ -49,8 +51,8 @@ def searchPetitions():
         searchstring = args["searchstring"]
         targets=firebasemanager.searchPetitions(searchstring)
         return json.dumps(targets)
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 @app.route("/publishPetition",methods=["GET","POST"])
 def publishPetition():
@@ -60,23 +62,16 @@ def publishPetition():
         uid = args["uid"]
         firebasemanager.publishPetition(uid)
         return "true"
-    except:
-        return "false"
-
-@app.route("/indicatorTypes", methods=["GET", "POST"])
-def indicatorTypes():
-    try:
-        return json.dumps(list(sdmxmanager.indicators.keys()))
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 @app.route("/countries", methods=["GET", "POST"])
 def countries():
     """Get list of all countries in database."""
     try:
         return json.dumps(sdmxmanager.countries)
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 @app.route("/getIndicatorsByCountry", methods=["POST"])
 def getIndicatorsByCountry():
@@ -85,8 +80,8 @@ def getIndicatorsByCountry():
         args = flask.request.json
         country = args["country"]
         return json.dumps(sdmxmanager.indicators[country])
-    except:
-        return "false"
+    except Exception as e:
+        return str(e)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=235, threaded=True)
