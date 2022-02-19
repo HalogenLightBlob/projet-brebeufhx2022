@@ -134,7 +134,7 @@ function Map() {
         <div className="country-name">{countryName}</div>
         {Object.keys(countryInfo).map((info) => (
           <div key={info} className="country-info">
-            <div className="country-info-name">{info}</div>
+            <div className="country-info-name">{info}:</div>
             <div className="country-info-value">{countryInfo[info]}</div>
           </div>
         ))}
