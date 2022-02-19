@@ -13,7 +13,7 @@ const NavBar = () => {
       <div style={{ width: "50%" }}>
         <NavLink className="logo" to="/">
           {/* <img src={logo} alt="logo" width="40px" height="40px" /> */}
-          <p className="brand-name">Child Awareness</p>
+          <p className="brand-name">Protection des droits de la jeunesse</p>
         </NavLink>
       </div>
       <ul
@@ -22,13 +22,13 @@ const NavBar = () => {
         id={showLinks ? "hidden" : ""}
       >
         <NavLink className="nav-link" to="/">
-          Home
+          Accueil
         </NavLink>
         <NavLink className="nav-link" to="/explore">
-          Explore
+          Explorer
         </NavLink>
         <NavLink className="nav-link nav-btn" to="/petition">
-          Make a Petition
+          Faire une Pétition
         </NavLink>
       </ul>
       <button

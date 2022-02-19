@@ -6,7 +6,7 @@ import "./home.css";
 const Home = () => {
   return (
     <div class="container">
-      <h1 class="title">Se Battre pour l'avenir de nos enfants</h1>
+      <h1 class="title">Se battre pour l'avenir de nos enfants</h1>
       <div class="textContainer">
         <h3 class="subtitle-home">Notre Mission</h3>
         <h5 class="description">
