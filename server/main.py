@@ -12,8 +12,9 @@ def uploadPetition():
         title = args["title"]
         body = args["text"]
         author = args.get("author", "Anonyme")
-        firebasemanager.uploadPetition(title,body,author)
-        return "true"
+        email = args.get("email", None)
+        result=firebasemanager.uploadPetition(title,body,author,email)
+        return result
     except:
         return "false"
 
