@@ -1,0 +1,56 @@
+.mapboxgl-canvas-container {
+  height: 100%;
+  overflow: hidden;
+}
+
+.mapboxgl-control-container {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 6px 12px;
+}
+
+.mapboxgl-ctrl-attrib-button {
+  visibility: hidden;
+}
+
+.mapboxgl-ctrl-attrib-inner a {
+  padding: 3px 5px;
+  font-size: 12px;
+  color: cyan;
+  text-decoration: none;
+  border-radius: 3px;
+  background-color: gray;
+  opacity: .5;
+  transition: .3s;
+}
+
+.mapboxgl-ctrl-attrib-inner a:hover {
+  opacity: 1;
+}
+
+.country-data {
+  right: 0;
+  top: 0;
+  margin: 6px 12px;
+  padding: 3px 5px;
+  font-family: monospace;
+  position: absolute;
+  background-color: white;
+  opacity: .5;
+  border-radius: 3px;
+}
+
+.country-info {
+  text-align: left;
+}
+
+.country-info-name {
+  display: inline;
+}
+
+.country-info-value {
+  float: right;
+  display: inline;
+}
