@@ -5,11 +5,12 @@ cred=firebase_admin.credentials.Certificate("data/credentials.json")
 app=firebase_admin.initialize_app(cred)
 firestoredb=firestore.client()
 petitionbase=firestoredb.collection("petitions")
+pendingbase=firestoredb.collection("pending")
 
 def uploadPetition(title,text,author):
     uid=str(uuid.uuid1())
     data=dict(title=title,text=text,author=author,votes=0)
-    petitionbase.document(uid).set(data)
+    pendingbase.document(uid).set(data)
 
 def votePetition(uid):
     try:petition=petitionbase.document(uid)
