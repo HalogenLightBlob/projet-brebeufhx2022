@@ -1,4 +1,4 @@
-import firebase_admin,uuid
+import firebase_admin,uuid,json,random
 from firebase_admin import firestore
 
 cred=firebase_admin.credentials.Certificate("data/credentials.json")
@@ -17,10 +17,11 @@ def votePetition(uid):
     votes=petition.get("votes")+1
     petition.update(votes=votes)
 
-def getPetition():
+def getPetition(count):
     petitions=list()
     for petition in list(petitionbase.list_documents()):
-        petitions.append((petition.get().get("votes"),petition.id))
+        petitions.append((petition.get().get("votes"),petition))
     petitions.sort()
-    petitions=[petition[1] for petition in petitions]
-    return petitions
+    petitions=[{**petition[1].get().to_dict(),"uid":petition[1].id} for petition in petitions]
+    random.shuffle(petitions)
+    return petitions[:min(count,len(petitions)-1)]
