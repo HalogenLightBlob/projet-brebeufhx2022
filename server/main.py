@@ -39,5 +39,15 @@ def getPetition():
     except:
         return "false"
 
+@app.route("/publishPetition",methods=["GET","POST"])
+def publishPetition():
+    """Move a petition to the published folder"""
+    try:
+        args = flask.request.json
+        uid = args["uid"]
+        firebasemanager.publishPetition(uid)
+        return "true"
+    except:return "false
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=235, threaded=True)
