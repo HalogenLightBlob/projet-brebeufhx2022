@@ -1,5 +1,5 @@
 import flask, json
-import firebasemanager
+import firebasemanager,sdmxmanager
 
 app = flask.Flask(__name__)
 
@@ -58,6 +58,30 @@ def publishPetitions():
         uid = args["uid"]
         firebasemanager.publishPetition(uid)
         return "true"
+    except:
+        return "false"
+
+@app.route("/indicatorTypes", methods=["GET", "POST"])
+def indicatorTypes():
+    try:
+        return json.dumps(list(sdmxmanager.indicators.keys()))
+    except:
+        return "false"
+
+@app.route("/countries", methods=["GET", "POST"])
+def countries():
+    try:
+        return json.dumps(sdmxmanager.countries)
+    except:
+        return "false"
+
+@app.route("/getIndicatorByCountry", methods=["POST"])
+def getIndicatorByCountry():
+    try:
+        args = flask.request.json
+        indicator = sdmxmanager.indicators[args["indicator"]]
+        country = args["country"]
+        return json.dumps(sdmxmanager.files[indicator][country])
     except:
         return "false"
 
